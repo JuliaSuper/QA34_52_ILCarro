@@ -7,20 +7,18 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
-import java.util.Random;
-
 public class LoginTests extends AppManager {
 
     @BeforeMethod
-    public void goToRegistrationLoginPage(){
+    public void goToLoginPage(){
         HomePage homePage = new HomePage(getDriver());
         homePage.clickLoginButton();
     }
 
     @Test
     public void loginPositiveTest(){
-        User user = User.builder().
-                email("juliyur2023@gmail.com")
+        User user = User.builder()
+                .username("juliyur2023@gmail.com")
                 .password("123DFjk$")
                 .build();
         LoginPage loginPage = new LoginPage(getDriver());

@@ -24,7 +24,7 @@ public class LoginPage extends BasePage{
     WebElement btnYalla;
 
     public void typeLoginForm(User user){
-        inputEmail.sendKeys(user.getEmail());
+        inputEmail.sendKeys(user.getUsername());
         inputPassword.sendKeys(user.getPassword());
 
     }

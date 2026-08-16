@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
+
 import static utils.PropertiesReader.*;
 import static utils.UserFactory.*;
 
@@ -20,6 +21,7 @@ public class LoginTests extends AppManager {
         new HomePage(getDriver()).clickLoginButton();
         loginPage = new LoginPage(getDriver());
     }
+
     @Test
     public void loginEmptyEmailNegativeTest() {
         User user = User.builder()
@@ -43,7 +45,6 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickYalla();
-
         softAssert.assertFalse(loginPage.isYallaButtonEnabled(),
                 "Y'alla button is unavailable when the Password field is empty");
         softAssert.assertTrue(loginPage.isTextErrorPresent("Password is required"),
@@ -57,7 +58,6 @@ public class LoginTests extends AppManager {
                 .username(getProperty("base.properties", "email"))
                 .password(getProperty("base.properties", "password"))
                 .build();
-
         loginPage.typeLoginForm(user);
         loginPage.clickYalla();
         Assert.assertTrue(loginPage.ispPopUpSuccessLoginDisplayed());
@@ -88,7 +88,8 @@ public class LoginTests extends AppManager {
                 "Текст ошибки валидации email не соответствует" +
                         " ожидаемому");
     }
-// тест с ДЗ_4
+
+    // тест с ДЗ_4
     @Test
     public void loginNegativeTest_EmptyPassword() {
         User user = userWithEmptyPassword();

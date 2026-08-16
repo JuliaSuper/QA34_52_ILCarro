@@ -3,15 +3,18 @@ package utils;
 import dto.User;
 import net.datafaker.Faker;
 
+import static utils.PropertiesReader.getProperty;
+
 public class UserFactory {
-  private static Faker faker = new Faker();
+    private static Faker faker = new Faker();
 
     public static User positiveRegistrazioneUser() {
         User user = User.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .username(faker.internet().emailAddress())
-                .password("Walid$Pass!")
+                .password(getProperty("base.properties",
+                        "passwordRegistrazioneUser"))
                 .build();
         return user;
     }
@@ -22,6 +25,7 @@ public class UserFactory {
                 .password("123DFjk$")
                 .build();
     }
+
     public static User userWithInvalidEmail() {
         return User.builder()
                 .username(faker.credentials().username() + "gmail.com")

@@ -20,6 +20,34 @@ public class LoginTests extends AppManager {
         new HomePage(getDriver()).clickLoginButton();
         loginPage = new LoginPage(getDriver());
     }
+    @Test
+    public void loginEmptyEmailNegativeTest() {
+        User user = User.builder()
+                .username("")
+                .password(getProperty("base.properties", "password"))
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickYalla();
+        Assert.assertFalse(loginPage.isYallaButtonEnabled(),
+                "Y'alla button is unavailable when the Email field is empty");
+        Assert.assertTrue(loginPage.isTextErrorPresent("Email is required"),
+                "error message: Email is required");
+    }
+
+    @Test
+    public void loginEmptyPasswordNegativeTest() {
+        User user = User.builder()
+                .username(getProperty("base.properties", "email"))
+                .password("")
+                .build();
+        loginPage.typeLoginForm(user);
+        loginPage.clickYalla();
+
+        Assert.assertFalse(loginPage.isYallaButtonEnabled(),
+                "Y'alla button is unavailable when the Password field is empty");
+        Assert.assertTrue(loginPage.isTextErrorPresent("Password is required"),
+                "error message: Password is required");
+    }
 
     @Test
     public void loginPositiveTest() {

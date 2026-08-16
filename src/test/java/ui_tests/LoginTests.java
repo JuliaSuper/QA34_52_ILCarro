@@ -28,10 +28,11 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickYalla();
-        Assert.assertFalse(loginPage.isYallaButtonEnabled(),
+        softAssert.assertFalse(loginPage.isYallaButtonEnabled(),
                 "Y'alla button is unavailable when the Email field is empty");
-        Assert.assertTrue(loginPage.isTextErrorPresent("Email is required"),
+        softAssert.assertTrue(loginPage.isTextErrorPresent("Email is required"),
                 "error message: Email is required");
+        softAssert.assertAll();
     }
 
     @Test
@@ -43,10 +44,11 @@ public class LoginTests extends AppManager {
         loginPage.typeLoginForm(user);
         loginPage.clickYalla();
 
-        Assert.assertFalse(loginPage.isYallaButtonEnabled(),
+        softAssert.assertFalse(loginPage.isYallaButtonEnabled(),
                 "Y'alla button is unavailable when the Password field is empty");
-        Assert.assertTrue(loginPage.isTextErrorPresent("Password is required"),
+        softAssert.assertTrue(loginPage.isTextErrorPresent("Password is required"),
                 "error message: Password is required");
+        softAssert.assertAll();
     }
 
     @Test

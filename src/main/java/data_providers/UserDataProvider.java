@@ -23,6 +23,8 @@ public class UserDataProvider {
                 list.add(User.builder()
                         .username(sprintLine[0])
                         .password(sprintLine[1])
+                        .firstName(sprintLine[2])
+                        .lastName(sprintLine[3])
                         .build());
                 line = bufferedReader.readLine();
 

@@ -7,13 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-import java.nio.file.WatchEvent;
-
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
-        PageFactory.initElements
-                (new AjaxElementLocatorFactory(driver, 10),
-                        this);
+        PageFactory.initElements(new AjaxElementLocatorFactory
+                (driver, 10), this);
     }
 
     @FindBy(id = "email")
@@ -26,24 +23,14 @@ public class LoginPage extends BasePage {
     WebElement popUpSuccessLogin;
     @FindBy(xpath = "//h1[text()='Login failed']")
     WebElement popUpLoginFailed;
-    @FindBy(xpath =
-            "//input[@id='email']/following-sibling::div[contains(@class, 'error')]")
-    WebElement errorEmail;
+
 
     public void typeLoginForm(User user) {
-        if (user.getUsername() != null) {
-            inputEmail.click();
-            inputEmail.clear();
-            inputEmail.sendKeys(user.getUsername());
-        }
-        if (user.getPassword() != null) {
-            inputPassword.click();
-            inputPassword.clear();
-            inputPassword.sendKeys(user.getPassword());
-        }
+        inputEmail.sendKeys(user.getUsername());
+        inputPassword.sendKeys(user.getPassword());
     }
 
-    public void clickYalla() {
+    public void clickBtnYalla() {
         btnYalla.click();
     }
 
@@ -55,15 +42,7 @@ public class LoginPage extends BasePage {
         return isElementDisplayed(popUpLoginFailed);
     }
 
-    public boolean isBTNYallaEnabled() {
+    public boolean isBtnYallaEnabled() {
         return btnYalla.isEnabled();
-    }
-
-    public boolean isYallaButtonEnabled() {
-        return btnYalla.isEnabled();
-    }
-
-    public String getEmailErrorMessage() {
-        return errorEmail.getText().trim();
     }
 }

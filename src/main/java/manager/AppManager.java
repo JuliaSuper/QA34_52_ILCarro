@@ -1,4 +1,4 @@
-package manedger;
+package manager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,5 +23,4 @@ public class AppManager {
             driver.quit();
         }
     }
-
 }

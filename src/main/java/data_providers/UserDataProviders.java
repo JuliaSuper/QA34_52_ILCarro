@@ -1,5 +1,4 @@
 package data_providers;
-
 import dto.User;
 import org.testng.annotations.DataProvider;
 
@@ -10,29 +9,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class UserDataProvider {
+public class UserDataProviders {
     @DataProvider
-    public Iterator<User> dataProvider() {
+    public Iterator<User>
+    dataProviderForRegistrationWrongPasswordOrEmail() {
         List<User> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader
                 (new FileReader("src/test/resources" +
-                        "/Wrong_registration_password.csv"))) {
+                        "/wrong_email_password.csv"))) {
             String line = bufferedReader.readLine();
             while (line != null) {
-                String[] sprintLine = line.split(",");
+                String[] splitLine = line.split(",");
                 list.add(User.builder()
-                        .username(sprintLine[0])
-                        .password(sprintLine[1])
-                        .firstName(sprintLine[2])
-                        .lastName(sprintLine[3])
+                        .username(splitLine[0])
+                        .password(splitLine[1])
                         .build());
                 line = bufferedReader.readLine();
-
             }
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("created exception");
         }
-        return list.iterator();
+        return list.listIterator();
     }
 }

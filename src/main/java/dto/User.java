@@ -2,16 +2,16 @@ package dto;
 
 import lombok.*;
 
-@Getter
 @Setter
-@ToString
+@Getter
 @Builder
-@NoArgsConstructor
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 
 public class User {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
+    private  String username;
+    private  String password;
+    private  String firstName;
+    private  String lastName;
 }

@@ -1,4 +1,5 @@
 package data_providers;
+
 import dto.User;
 import org.testng.annotations.DataProvider;
 

@@ -36,7 +36,8 @@ public class LoginTests extends AppManager {
     @Test
     public void loginNegativeWrongEmailTest() {
         User user = User.builder()
-                .username("ima_simonova370@gmail.com")
+                .username(getProperty("base.properties",
+                        "emailTest"))
                 .password(getProperty("base.properties",
                         "password"))
                 .build();
@@ -50,7 +51,8 @@ public class LoginTests extends AppManager {
         User user = User.builder()
                 .username(getProperty("base.properties",
                         "email"))
-                .password("SSas124!")
+                .password(getProperty("base.properties",
+                        "passwordRegistrationUser"))
                 .build();
         loginPage.typeLoginForm(user);
         loginPage.clickBtnYalla();

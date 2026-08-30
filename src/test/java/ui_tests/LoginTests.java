@@ -4,11 +4,17 @@ import dto.User;
 import manager.AppManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
+import utils.TestINGListener;
+
 import static utils.PropertiesReader.*;
+
+@Listeners(TestINGListener.class)
 
 public class LoginTests extends AppManager {
     LoginPage loginPage;
@@ -99,7 +105,7 @@ public class LoginTests extends AppManager {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginNegativeEmptyFieldEmailTest() {
         User user = User.builder()
                 .username("")

@@ -43,11 +43,18 @@ public class AddNewCarTest extends AppManager {
         Car car = posittiveCar();
         System.out.println(car);
         letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.downloadImage("Photo1.jpg");
         letTheCarWorkPage.clickBtnSubmitWithJS();
+        Assert.assertTrue((new PopUpPage(getDriver())
+                .isTextInPopUpMessagePresent("{\"city\":\"must not be blank\"}")));
 
-        Assert.assertTrue(letTheCarWorkPage.showInvalidAddressAlert(),
-                "Error message 'Wrong address' is not displayed!");
+//        Assert.assertTrue(letTheCarWorkPage.showInvalidAddressAlert(),
+//                "Error message 'Wrong address' is not displayed!");
 
     }
-
+// Homework Negative Tests
+// 1. only click btn Submit
+// 2. click all fields and btnSubmit
+// 3. leave one field blank and other fields type with valid data
+// 4. wrong year
 }

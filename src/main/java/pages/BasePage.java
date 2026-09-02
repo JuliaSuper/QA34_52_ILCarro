@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -96,5 +97,16 @@ public abstract class BasePage {
 
     public boolean isElementDisplayed(WebElement element) {
         return element.isDisplayed();
+    }
+
+    public boolean isMessageDisplayed(String messageText) {
+        try {
+            String xpath = String.format("//*[contains(text(), '%s')]", messageText);
+            WebElement messageElement = driver.findElement(By.xpath(xpath));
+
+            return messageElement.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

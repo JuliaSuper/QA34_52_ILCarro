@@ -55,26 +55,38 @@ public class LetTheCarWorkPage extends BasePage {
 //        inputSeats.sendKeys(String.valueOf(car.getSeats()));
 //        inputSeats.sendKeys(car.getSeats().toString());
 //        inputSeats.sendKeys(car.getSeats()+"");
+        if (car.getSeats() !=null){
         inputSeats.sendKeys(Integer.toString(car.getSeats()));
+        }
         inputCarClass.sendKeys(car.getCarClass());
         inputSerialNumber.sendKeys(car.getSerialNumber());
-        inputPrice.sendKeys(String.valueOf(car.getPricePerDay()));
+        if (car.getPricePerDay() !=null){
+        inputPrice.sendKeys(String.valueOf(car.getPricePerDay()));}
         inputAbout.sendKeys(car.getAbout());
     }
 
-    public  void downloadImage(String fileName){
-        inputImage.sendKeys(new File("src/test/resources/"+fileName)
+    public void downloadImage(String fileName) {
+        inputImage.sendKeys(new File("src/test/resources/" + fileName)
                 .getAbsolutePath());
     }
 
-    private void chooseFuel(Fuel fuel){
-        selectFuel.click();
-        driver.findElement(By.xpath(fuel.getLocator())).click();
+    public void chooseFuel(Fuel fuel) {
+        if (fuel != null) {
+            selectFuel.click();
+            driver.findElement(By.xpath(fuel.getLocator())).click();
+        }
     }
+
     public boolean showInvalidAddressAlert() {
         return isElementDisplayed(errorLocation);
     }
 
+    public boolean isBtnSubmitEnabled() {
+        return btnSubmit.isEnabled();
+    }
+    public boolean isErrorMessagePresent(String expectedText) {
+        return isMessageDisplayed(expectedText);
+    }
 
     public void clickBtnSubmitWithJS() {
         JavascriptExecutor js = (JavascriptExecutor) driver;

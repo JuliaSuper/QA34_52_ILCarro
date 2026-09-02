@@ -25,4 +25,38 @@ public class CarFactory {
                 .about(faker.text().text(0,500))
                 .build();
     }
+
+    public static Car negativeCarFutureYear() {
+        int futureYear = LocalDate.now().getYear() + faker.number().numberBetween(1, 10);
+
+        return Car.builder()
+                .serialNumber(faker.vehicle().licensePlate())
+                .city("Haifa")
+                .manufacture(faker.vehicle().manufacturer())
+                .model(faker.vehicle().model())
+                .year(Integer.toString(futureYear))
+                .fuel(faker.options().option(Fuel.values()))
+                .seats(faker.number().numberBetween(2, 20))
+                .carClass(faker.vehicle().carType())
+                .pricePerDay(faker.number().randomDouble(2, 0, 1000))
+                .about(faker.text().text(0, 500))
+                .build();
+    }
+
+    public static Car negativeCarNegativeYear() {
+        int negativeYear = faker.number().numberBetween(-100, -1);
+
+        return Car.builder()
+                .serialNumber(faker.vehicle().licensePlate())
+                .city("Haifa")
+                .manufacture(faker.vehicle().manufacturer())
+                .model(faker.vehicle().model())
+                .year(Integer.toString(negativeYear))
+                .fuel(faker.options().option(Fuel.values()))
+                .seats(faker.number().numberBetween(2, 20))
+                .carClass(faker.vehicle().carType())
+                .pricePerDay(faker.number().randomDouble(2, 0, 1000))
+                .about(faker.text().text(0, 500))
+                .build();
+    }
 }

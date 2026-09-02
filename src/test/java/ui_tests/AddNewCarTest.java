@@ -101,8 +101,6 @@ public class AddNewCarTest extends AppManager {
 
     @Test
     public void addNewCarNegativeFutureYearTest() {
-        SoftAssert softAssert = new SoftAssert();
-
         Car car = negativeCarFutureYear();
 
         letTheCarWorkPage.typeAddNewCarForm(car);
@@ -112,14 +110,11 @@ public class AddNewCarTest extends AppManager {
                 letTheCarWorkPage.isMessageDisplayed("Wrong year"),
                 "Validation error for future year is not displayed!"
         );
-
         softAssert.assertAll();
     }
 
     @Test
     public void addNewCarNegativeYearNegativeTest() {
-        SoftAssert softAssert = new SoftAssert();
-
         Car car = negativeCarNegativeYear();
 
         letTheCarWorkPage.typeAddNewCarForm(car);
@@ -129,7 +124,6 @@ public class AddNewCarTest extends AppManager {
                 letTheCarWorkPage.isMessageDisplayed("Wrong year"),
                 "Validation error for future year is not displayed!"
         );
-
         softAssert.assertAll();
     }
 

@@ -1,5 +1,8 @@
 package utils;
 
+import manager.AppManager;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
@@ -9,6 +12,7 @@ import org.testng.ITestResult;
 public class TestINGListener implements ITestListener {
     Logger logger = LoggerFactory
             .getLogger(TestINGListener.class);
+    private WebDriver driver;
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -27,18 +31,23 @@ public class TestINGListener implements ITestListener {
         ITestListener.super.onTestFailure(result);
         logger.error("test failed -->" + result.getName() + "status -->"
                 + result.getStatus());
+        this.driver = ((AppManager)result.getInstance()).getDriver();
+        TakeScreenShot.takeScreenShot((TakesScreenshot)driver);
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
         ITestListener.super.onTestSkipped(result);
         logger.warn("test skipped -->" + result.getName());
+
     }
 
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
         ITestListener.super.onTestFailedWithTimeout(result);
         logger.error("test failed with timeout -->" + result.getName());
+        this.driver = ((AppManager)result.getInstance()).getDriver();
+        TakeScreenShot.takeScreenShot((TakesScreenshot)driver);
     }
 
     @Override

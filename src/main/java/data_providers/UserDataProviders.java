@@ -16,14 +16,15 @@ public class UserDataProviders {
     dataProviderForRegistrationWrongPasswordOrEmail() {
         List<User> list = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader
-                (new FileReader("src/test/resources" +
-                        "/wrong_email_password.csv"))) {
+                (new FileReader("src/test/resources/Wrong_email_password.csv"))) {
             String line = bufferedReader.readLine();
             while (line != null) {
                 String[] splitLine = line.split(",");
                 list.add(User.builder()
                         .username(splitLine[0])
                         .password(splitLine[1])
+                        .firstName(splitLine[2])
+                        .lastName(splitLine[3])
                         .build());
                 line = bufferedReader.readLine();
             }

@@ -29,6 +29,13 @@ public class TestINGListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
+        Throwable throwable = result.getThrowable();
+        if (throwable != null) {
+            logger.error("Test failed: {}, Message: {}",
+                    result.getName(), throwable.getMessage());
+        } else
+            logger.error("Test failed: {}, Status: {}",
+                    result.getName(), result.getStatus());
         logger.error("test failed -->" + result.getName() + "status -->"
                 + result.getStatus());
         this.driver = ((AppManager)result.getInstance()).getDriver();

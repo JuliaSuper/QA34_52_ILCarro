@@ -28,7 +28,7 @@ public class HomePage extends BasePage {
     WebElement inputCity;
     @FindBy(id = "dates")
     WebElement inputDates;
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//button[@type='submit' and text()='Y’alla!']")
     WebElement btnYalla;
 
     public void clickBtnLogin() {
@@ -42,15 +42,33 @@ public class HomePage extends BasePage {
     public void  typeSearchForm(String city, LocalDate startDate,
                                 LocalDate endDate){
         inputCity.sendKeys(city);
-        System.out.println(startDate);
-        System.out.println(endDate);
-        System.out.println(startDate.getMonthValue());
-        System.out.println(startDate.getDayOfMonth());
+//        System.out.println(startDate);
+//        System.out.println(endDate);
+//        System.out.println(startDate.getMonthValue());
+//        System.out.println(startDate.getDayOfMonth());
         String dates = startDate.getMonthValue()+"/"+startDate.getDayOfMonth()
                 +"/"+startDate.getYear() +" - " +endDate.getMonthValue()+"/"+endDate.getDayOfMonth()
                 +"/"+endDate.getYear();
-        System.out.println(dates);
+//        System.out.println(dates);
         inputDates.sendKeys(dates);
+    }
+
+    public void clickBtnYallaSubmit() {
+        btnYalla.click();
+    }
+    public boolean isErrorMessagePresentCity(String expectedText) {
+        return isMessageDisplayed(expectedText);
+    }
+    public boolean isErrorMessagePresent(String messageText) {
+        String xpath = String.format("//div[@class='error' and contains(normalize-space(text()), \"%s\")]", messageText.trim());
+        return driver.findElement(By.xpath(xpath)).isDisplayed();
+    }
+
+    public void typeSearchFormWithEmptyDates(String city) {
+        inputCity.clear();
+        inputCity.sendKeys(city);
+        inputDates.clear();
+        inputCity.click();
     }
 }
 

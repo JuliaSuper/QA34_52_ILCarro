@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 public class SearchCarTests extends AppManager {
     HomePage homePage;
-    SoftAssert softAssert;
+    SoftAssert softAssert = new SoftAssert();
 
     @BeforeMethod
     public void openHomePage() {
@@ -38,14 +38,26 @@ public class SearchCarTests extends AppManager {
         homePage.clickBtnYalla();
         Assert.assertTrue(homePage.isTextInErrorPresent
         ("You can't pick date before today"));
-
-
     }
+
+    @Test
+    public void searchCarNegativeSameStartAndEndDatesTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now();
+        homePage.typeSearchForm(city, startDate, endDate);
+        homePage.clickBtnYalla();
+        Assert.assertTrue(homePage.isTextInErrorPresent
+                ("You can't book car for less than a day"));
+    }
+
+
     @Test
     public void searchCarNegativeTestEndDateBeforeStartDate() {
         String city = "Haifa";
-        LocalDate startDate = LocalDate.now().plusDays(5);
-        LocalDate endDate = LocalDate.now().plusDays(2);
+        LocalDate startDate = LocalDate.now().plusDays(10);
+        LocalDate endDate = LocalDate.now()
+                .plusDays(7);
 
         homePage.typeSearchForm(city, startDate, endDate);
         homePage.clickBtnYalla();
@@ -62,9 +74,8 @@ public class SearchCarTests extends AppManager {
         String city = "Haifa";
         homePage.typeSearchFormWithEmptyDates(city);
         homePage.clickBtnYalla();
-
-//        Assert.assertFalse(homePage.isErrorMessagePresentCity
-//                ("Dates are required"));
+        Assert.assertFalse(homePage.isTextInErrorPresent
+                ("Dates are required"));
     }
 
     @Test

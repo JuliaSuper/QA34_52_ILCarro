@@ -21,7 +21,7 @@ public class AddNewCarTest extends AppManager {
     LetTheCarWorkPage letTheCarWorkPage;
     SoftAssert softAssert = new SoftAssert();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void goToTheCarWorkPage() {
 //        new HomePage(getDriver()).clickBtnLogin();
 //        loginPage = new LoginPage(getDriver());
@@ -39,7 +39,7 @@ public class AddNewCarTest extends AppManager {
                 .clickHeaderButtons(HeaderMenu.LET_THE_CAR_WORK);
     }
 
-    @Test
+    @Test(groups = {"smoke", "regress","car","positive"})
     public void addNewCarPositiveTest() {
         Car car = posittiveCar();
         System.out.println(car);

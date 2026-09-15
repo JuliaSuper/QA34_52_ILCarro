@@ -36,7 +36,8 @@ public class HomePage extends BasePage {
     WebElement dateErrorMessage;
     @FindBy(xpath = "//button[@aria-label='Choose month and year']")
     WebElement btnYearOnCalendar;
-
+    @FindBy(xpath = "//h3[@class='no-cars-label ng-star-inserted']")
+    WebElement searchResultTitle;
 
     public void clickBtnLogin() {
         btnLogin.click();
@@ -102,6 +103,13 @@ public class HomePage extends BasePage {
 
     }
 
+    public boolean isYallaButtonEnabled() {
+        return btnYalla.isEnabled();
+    }
+
+    public boolean isMessageNoCarPresent() {
+        return searchResultTitle.getText().contains("No available cars in");
+    }
 
     public void typeSearchFormWithEmptyDates(String city) {
         inputCity.clear();

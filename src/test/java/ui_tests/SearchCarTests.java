@@ -87,4 +87,39 @@ public class SearchCarTests extends AppManager {
         homePage.clickBtnYalla();
         Assert.assertTrue(homePage.isUrlContactsText("results"));
     }
+
+    @Test
+    public void searchCarNegativeWithCalendarPastDateTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().minusDays(2);
+        LocalDate endDate = LocalDate.now().plusDays(8);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        Assert.assertFalse(homePage.isYallaButtonEnabled(),
+                "Button Y'alla! should be disabled for past dates");
+    }
+
+    @Test
+    public void searchCarNegativeWithCalendarEndDateBeforeStartDateTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().plusDays(10);
+        LocalDate endDate = LocalDate.now().plusDays(2);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        Assert.assertFalse(homePage.isYallaButtonEnabled(),
+                "Button Y'alla! should be disabled for past dates");
+    }
+
+    @Test
+    public void searchCarNegativeWithCalendarSameDatesTest() {
+        String city = "Haifa";
+        LocalDate startDate = LocalDate.now().plusDays(3);
+        LocalDate endDate = LocalDate.now().plusDays(3);
+        homePage.typeSearchFormWithCalendar(city, startDate, endDate);
+        homePage.clickBtnYalla();
+        softAssert.assertTrue(homePage.isUrlContactsText("results"),
+                "URL does not contain 'results'");
+        softAssert.assertTrue(homePage.isMessageNoCarPresent(),
+                "Message 'No available cars in' is missing on results page");
+        softAssert.assertAll();
+    }
+
 }

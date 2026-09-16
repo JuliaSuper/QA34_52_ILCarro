@@ -1,7 +1,11 @@
 package manager;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
 import org.slf4j.Logger;
@@ -15,24 +19,33 @@ import java.lang.reflect.Method;
 public class AppManager {
     private WebDriver driver;
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
 
     public Logger logger = LoggerFactory.getLogger(AppManager.class);
+    static String browser = System.getProperty("browser", Browser.CHROME.browserName());
 
     @BeforeMethod(alwaysRun = true)
     public void setup(Method method) {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        //driver = new ChromeDriver();
+        if (browser.equals(Browser.CHROME.browserName())) {
+            driver = new ChromeDriver();
+        } else if (browser.equals(Browser.FIREFOX.browserName())) {
+            driver = new FirefoxDriver();
+        } else if(browser.equals(Browser.EDGE.browserName())) {
+            driver = new EdgeDriver();
+        }
+        // driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         logger.info("Start testing with method -->" + method.getName());
         WebDriverListener webDriverListener = new WDListener();
         driver = new EventFiringDecorator<>(webDriverListener).decorate(driver);
     }
 
     @AfterMethod(alwaysRun = true)//(enabled = false)
-    public void tearDown(){
-        if(driver != null){
+    public void tearDown() {
+        if (driver != null) {
             driver.quit();
         }
     }

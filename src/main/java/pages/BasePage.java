@@ -22,7 +22,7 @@ public abstract class BasePage {
         driver = wd;
     }
 
-    @FindBy(xpath = "//div[@class='error']")
+    @FindBy(xpath = "//div[@class='error' or @class='ng-star-inserted']")
     List<WebElement> listErrors;
 
     public boolean isTextInErrorPresent(String text){
